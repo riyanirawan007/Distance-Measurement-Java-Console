@@ -10,7 +10,9 @@ public class DistanceMeasurement{
     private static int startLatLngLine=2;
     private static int destinationsLatLngLine=4;
     private static Scanner scn;
-    private static String filename="data.sj";
+    private static String filename="data.sj"
+    ,slocResultFilename="SLOC Result.txt"
+    ,haversineResultFilename="Haversine Result.txt";
     private static LatLng startLatLng;
     private static ArrayList<LatLng> destinationsLatLng=new ArrayList<>();
 
@@ -76,7 +78,7 @@ public class DistanceMeasurement{
         System.out.println("============Start Measurement=============");
         System.out.println("========Spherical Law of Cosines==========");
          try{    
-           FileWriter fw=new FileWriter("SLOC Result.sj");
+           FileWriter fw=new FileWriter(slocResultFilename);
            fw.write("Spherical Law of Cosines Distance Measurment\n\n");
            fw.write("[Start Coordinate]\n");
            fw.write(startLatLng.getLatitude()+","+startLatLng.getLongitude()+"\n\n");
@@ -86,7 +88,7 @@ public class DistanceMeasurement{
             for(LatLng coordinate : destinationsLatLng)
             {
                 i++;
-                double slocResult=new SphericalLawOfCosines()
+                double result=new SphericalLawOfCosines()
                     .setStartLatLng(startLatLng.getLatitude(),startLatLng.getLongitude())
                     .setDestinationLatLng(coordinate.getLatitude(),coordinate.getLongitude())
                     .setUnit("Km")
@@ -94,7 +96,7 @@ public class DistanceMeasurement{
                     .countDistanceBetween()
                     .getDistanceBetween();
                 fw.write("Destination "+i+" Lat,Lng ("
-                +coordinate.getLatitude()+","+coordinate.getLongitude()+") = "+slocResult+"Km\n");
+                +coordinate.getLatitude()+","+coordinate.getLongitude()+") = "+result+"Km\n");
             }    
            fw.close();    
            System.out.println("============== Done ===================");
@@ -103,7 +105,7 @@ public class DistanceMeasurement{
           System.out.println("============Start Measurement=============");
         System.out.println("======== Haversine Formula ==========");
          try{    
-           FileWriter fw=new FileWriter("Haversine Result.sj");
+           FileWriter fw=new FileWriter(haversineResultFilename);
            fw.write("Haversine Formula Distance Measurment\n\n");
            fw.write("[Start Coordinate]\n");
            fw.write(startLatLng.getLatitude()+","+startLatLng.getLongitude()+"\n\n");
@@ -113,7 +115,7 @@ public class DistanceMeasurement{
             for(LatLng coordinate : destinationsLatLng)
             {
                 i++;
-                double slocResult=new HaversineFormula()
+                double result=new HaversineFormula()
                     .setStartLatLng(startLatLng.getLatitude(),startLatLng.getLongitude())
                     .setDestinationLatLng(coordinate.getLatitude(),coordinate.getLongitude())
                     .setUnit("Km")
@@ -121,7 +123,7 @@ public class DistanceMeasurement{
                     .countDistanceBetween()
                     .getDistanceBetween();
                 fw.write("Destination "+i+" Lat,Lng ("
-                +coordinate.getLatitude()+","+coordinate.getLongitude()+") = "+slocResult+"Km\n");
+                +coordinate.getLatitude()+","+coordinate.getLongitude()+") = "+result+"Km\n");
             }    
            fw.close();    
            System.out.println("============== Done ===================");
